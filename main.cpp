@@ -5,9 +5,26 @@
  * Simple linked list class to practice various coding concepts
  **/
 
+#include <iostream>
+
 struct Node{
 	int data;
 	Node* next;
+
+	Node(){
+		data = -1;
+		next = nullptr;
+	}
+
+	Node(int data){
+		this->data = data;
+		next = nullptr;
+	}
+
+	Node(Node* copy){
+		this->data = copy->data;
+		this->next = copy->next;
+	}
 };
 
 class List{
@@ -16,6 +33,21 @@ class List{
 	// constructor
 	List(){
 		this->head = nullptr;
+	}
+
+	// constructor - array to list
+	List(int* arr, int size){
+		// initialize head node
+		head = new Node(arr[0]);
+
+		// use current pointer to traverse
+		Node* current = head;
+
+		for(int i = 1; i < size; i++)
+		{
+			current->next = new Node(arr[i]);
+			current = current->next;
+		}
 	}
 
 	// destructor
@@ -48,6 +80,17 @@ class List{
 		else return false;
 	}
 
+	void print(void){
+		Node* current = head;
+
+		while(current != nullptr)
+		{
+			std::cout << current->data << " -> ";
+			current = current->next;
+		}
+		std::cout << std::endl;
+	}
+
 	private:
 
 	Node* head;
@@ -55,6 +98,11 @@ class List{
 
 int main()
 {
+	int arr[10] = {0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9};
 	List list;
+	List arr_list(arr, 10);
+
+	arr_list.print();
+
 	return 0;	
 }
