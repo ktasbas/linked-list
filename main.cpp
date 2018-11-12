@@ -72,7 +72,25 @@ class List{
 	}
 
 	void addNode(Node* node){
+		// TODO: duplicate node instead to avoid errors with deleted pointers
 
+		// check if list is empty
+		// point head to node if it is]
+		if(this->isEmpty())
+		{
+			head = node;
+			return;
+		}
+		// traverse to last element in list
+		Node* current = head;
+		while(current->next != nullptr)
+		{
+			current = current->next;
+		}
+		// add element
+		current->next = node;
+		// TODO: should node->next be set to null?
+		// what if it points to a next node already?
 	}
 
 	bool isEmpty(void){
@@ -98,11 +116,14 @@ class List{
 
 int main()
 {
-	int arr[10] = {0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9};
-	List list;
-	List arr_list(arr, 10);
+	int arr[10] = {0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9};	// array to test constructor
+	List empty_list;		// default constructor
+	List test_list(arr, 10);	// array to list constructor
 
-	arr_list.print();
+	Node *test_node = new Node(10);		// node to test with
+	test_list.addNode(test_node);		// test addNode function
+
+	test_list.print();
 
 	return 0;	
 }
